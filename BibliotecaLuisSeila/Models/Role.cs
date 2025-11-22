@@ -1,4 +1,4 @@
-﻿namespace TrabajoPracticoAppLogin.Models
+﻿namespace BibliotecaLuisSeila.Models
 {
     public class Role
     {
