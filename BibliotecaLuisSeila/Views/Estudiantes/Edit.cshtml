@@ -1,0 +1,78 @@
+﻿@model BibliotecaLuisSeila.Models.Estudiantes
+@{
+    ViewData["Title"] = "Editar Estudiante";
+}
+
+<h1><i class="fas fa-edit"></i> Editar Estudiante</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="Id" />
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="Nombre" class="control-label"></label>
+                        <input asp-for="Nombre" class="form-control" />
+                        <span asp-validation-for="Nombre" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group mb-3">
+                        <label asp-for="Apellido" class="control-label"></label>
+                        <input asp-for="Apellido" class="form-control" />
+                        <span asp-validation-for="Apellido" class="text-danger"></span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Carnet" class="control-label"></label>
+                <input asp-for="Carnet" class="form-control" />
+                <span asp-validation-for="Carnet" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Correo" class="control-label"></label>
+                <input asp-for="Correo" type="email" class="form-control" />
+                <span asp-validation-for="Correo" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Telefono" class="control-label"></label>
+                <input asp-for="Telefono" class="form-control" />
+                <span asp-validation-for="Telefono" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Carrera" class="control-label"></label>
+                <input asp-for="Carrera" class="form-control" />
+                <span asp-validation-for="Carrera" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label class="control-label">Fecha de Registro</label>
+                <input type="text" class="form-control" value="@Model.FechaRegistro.ToString("dd/MM/yyyy")" readonly />
+                <small class="form-text text-muted">Fecha de registro no editable.</small>
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-warning">
+                    <i class="fas fa-save"></i> Guardar Cambios
+                </button>
+                <a class="btn btn-secondary" asp-action="Index">
+                    <i class="fas fa-arrow-left"></i> Volver a Lista
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}

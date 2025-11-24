@@ -1,0 +1,90 @@
+﻿@model BibliotecaLuisSeila.Dto.PrestamoDto
+@{
+    ViewData["Title"] = "Nuevo Préstamo";
+}
+
+<h1><i class="fas fa-handshake"></i> Nuevo Préstamo</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group mb-3">
+                <label asp-for="EstudianteId" class="control-label">Estudiante</label>
+                <select asp-for="EstudianteId" class="form-control" asp-items="ViewBag.Estudiantes">
+                    <option value="">-- Seleccionar Estudiante --</option>
+                </select>
+                <span asp-validation-for="EstudianteId" class="text-danger"></span>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="LibroId" class="control-label">Libro</label>
+                <select asp-for="LibroId" class="form-control" asp-items="ViewBag.Libros">
+                    <option value="">-- Seleccionar Libro --</option>
+                </select>
+                <span asp-validation-for="LibroId" class="text-danger"></span>
+                <small class="form-text text-muted">Solo se muestran libros disponibles.</small>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="FechaVencimiento" class="control-label">Fecha de Vencimiento</label>
+                <input asp-for="FechaVencimiento" type="date" class="form-control"
+                       min="@DateTime.Now.AddDays(1).ToString("yyyy-MM-dd")" />
+                <span asp-validation-for="FechaVencimiento" class="text-danger"></span>
+                <small class="form-text text-muted">La fecha debe ser posterior a hoy.</small>
+            </div>
+
+            <div class="form-group mb-3">
+                <label asp-for="Observaciones" class="control-label"></label>
+                <textarea asp-for="Observaciones" class="form-control" rows="3"
+                          placeholder="Observaciones adicionales del préstamo..."></textarea>
+                <span asp-validation-for="Observaciones" class="text-danger"></span>
+            </div>
+
+            <div class="alert alert-info">
+                <i class="fas fa-info-circle"></i>
+                <strong>Información:</strong> Al registrar el préstamo, se reducirá automáticamente
+                la cantidad disponible del libro en el inventario.
+            </div>
+
+            <div class="form-group">
+                <button type="submit" class="btn btn-success">
+                    <i class="fas fa-check-circle"></i> Registrar Préstamo
+                </button>
+                <a class="btn btn-secondary" asp-action="Index">
+                    <i class="fas fa-arrow-left"></i> Volver a Lista
+                </a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+        // Validación adicional para la fecha de vencimiento
+        document.addEventListener('DOMContentLoaded', function() {
+            const fechaVencimiento = document.getElementById('FechaVencimiento');
+            const today = new Date().toISOString().split('T')[0];
+
+            // Establecer fecha mínima como mañana
+            const minDate = new Date();
+            minDate.setDate(minDate.getDate() + 1);
+            const minDateString = minDate.toISOString().split('T')[0];
+
+            fechaVencimiento.min = minDateString;
+
+            // Si no hay valor seleccionado, establecer por defecto 15 días desde hoy
+            if (!fechaVencimiento.value) {
+                const defaultDate = new Date();
+                defaultDate.setDate(defaultDate.getDate() + 15);
+                fechaVencimiento.value = defaultDate.toISOString().split('T')[0];
+            }
+        });
+    </script>
+}

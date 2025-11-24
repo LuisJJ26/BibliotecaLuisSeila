@@ -1,0 +1,49 @@
+﻿@model BibliotecaLuisSeila.Models.Prestamos
+@{
+    ViewData["Title"] = "Eliminar Préstamo";
+}
+
+<h1><i class="fas fa-trash"></i> Eliminar Préstamo</h1>
+<hr />
+
+<div class="alert alert-danger">
+    <h4>¿Está seguro que desea eliminar este préstamo?</h4>
+    <p class="mb-0">Esta acción no se puede deshacer.</p>
+</div>
+
+<div class="row">
+    <div class="col-md-8">
+        <dl class="row">
+            <dt class="col-sm-4">Estudiante:</dt>
+            <dd class="col-sm-8">@Model.Estudiante.Nombre @Model.Estudiante.Apellido</dd>
+
+            <dt class="col-sm-4">Libro:</dt>
+            <dd class="col-sm-8">@Model.Libro.Titulo</dd>
+
+            <dt class="col-sm-4">Fecha Préstamo:</dt>
+            <dd class="col-sm-8">@Model.FechaPrestamo.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-4">Estado:</dt>
+            <dd class="col-sm-8">
+                @if (Model.EstaDevuelto)
+                {
+                    <span class="badge bg-success">Devuelto</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning">Pendiente</span>
+                }
+            </dd>
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="Id" />
+            <button type="submit" class="btn btn-danger">
+                <i class="fas fa-trash"></i> Eliminar
+            </button>
+            <a class="btn btn-secondary" asp-action="Index">
+                <i class="fas fa-arrow-left"></i> Cancelar
+            </a>
+        </form>
+    </div>
+</div>

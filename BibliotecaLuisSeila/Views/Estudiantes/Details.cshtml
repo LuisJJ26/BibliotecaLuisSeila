@@ -1,0 +1,43 @@
+﻿@model BibliotecaLuisSeila.Models.Estudiantes
+@{
+    ViewData["Title"] = "Detalles del Estudiante";
+}
+
+<h1><i class="fas fa-user"></i> Detalles del Estudiante</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-6">
+        <dl class="row">
+            <dt class="col-sm-4">Carnet:</dt>
+            <dd class="col-sm-8">@Model.Carnet</dd>
+
+            <dt class="col-sm-4">Nombre:</dt>
+            <dd class="col-sm-8">@Model.Nombre</dd>
+
+            <dt class="col-sm-4">Apellido:</dt>
+            <dd class="col-sm-8">@Model.Apellido</dd>
+
+            <dt class="col-sm-4">Correo:</dt>
+            <dd class="col-sm-8">@Model.Correo</dd>
+
+            <dt class="col-sm-4">Teléfono:</dt>
+            <dd class="col-sm-8">@Model.Telefono</dd>
+
+            <dt class="col-sm-4">Carrera:</dt>
+            <dd class="col-sm-8">@Model.Carrera</dd>
+
+            <dt class="col-sm-4">Fecha Registro:</dt>
+            <dd class="col-sm-8">@Model.FechaRegistro.ToString("dd/MM/yyyy")</dd>
+        </dl>
+
+        <div class="mt-4">
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+            <a class="btn btn-secondary" asp-action="Index">
+                <i class="fas fa-arrow-left"></i> Volver a Lista
+            </a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,90 @@
+﻿@model BibliotecaLuisSeila.Models.Prestamos
+@{
+    ViewData["Title"] = "Detalles del Préstamo";
+}
+
+<h1><i class="fas fa-eye"></i> Detalles del Préstamo</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <dl class="row">
+            <dt class="col-sm-4">Estudiante:</dt>
+            <dd class="col-sm-8">@Model.Estudiante.Nombre @Model.Estudiante.Apellido</dd>
+
+            <dt class="col-sm-4">Carnet:</dt>
+            <dd class="col-sm-8">@Model.Estudiante.Carnet</dd>
+
+            <dt class="col-sm-4">Libro:</dt>
+            <dd class="col-sm-8">@Model.Libro.Titulo</dd>
+
+            <dt class="col-sm-4">Autor:</dt>
+            <dd class="col-sm-8">@Model.Libro.Autor</dd>
+
+            <dt class="col-sm-4">ISBN:</dt>
+            <dd class="col-sm-8">@Model.Libro.ISBN</dd>
+
+            <dt class="col-sm-4">Fecha Préstamo:</dt>
+            <dd class="col-sm-8">@Model.FechaPrestamo.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-4">Fecha Vencimiento:</dt>
+            <dd class="col-sm-8">@Model.FechaVencimiento.ToString("dd/MM/yyyy")</dd>
+
+            <dt class="col-sm-4">Fecha Devolución:</dt>
+            <dd class="col-sm-8">
+                @if (Model.FechaDevolucion.HasValue)
+                {
+                    @Model.FechaDevolucion.Value.ToString("dd/MM/yyyy")
+                }
+                else
+                {
+                    <span class="text-muted">Pendiente</span>
+                }
+            </dd>
+
+            <dt class="col-sm-4">Estado:</dt>
+            <dd class="col-sm-8">
+                @if (Model.EstaDevuelto)
+                {
+                    <span class="badge bg-success">Devuelto</span>
+                }
+                else if (Model.FechaVencimiento < DateTime.Now)
+                {
+                    <span class="badge bg-danger">Vencido</span>
+                }
+                else
+                {
+                    <span class="badge bg-warning">Pendiente</span>
+                }
+            </dd>
+
+            <dt class="col-sm-4">Observaciones:</dt>
+            <dd class="col-sm-8">
+                @if (string.IsNullOrEmpty(Model.Observaciones))
+                {
+                    <span class="text-muted">Sin observaciones</span>
+                }
+                else
+                {
+                    @Model.Observaciones
+                }
+            </dd>
+        </dl>
+
+        <div class="mt-4">
+            @if (!Model.EstaDevuelto)
+            {
+                <form asp-action="Devolver" method="post" class="d-inline">
+                    <input type="hidden" name="id" value="@Model.Id" />
+                    <button type="submit" class="btn btn-success"
+                            onclick="return confirm('¿Está seguro de marcar este libro como devuelto?')">
+                        <i class="fas fa-check"></i> Marcar como Devuelto
+                    </button>
+                </form>
+            }
+            <a class="btn btn-secondary" asp-action="Index">
+                <i class="fas fa-arrow-left"></i> Volver a Lista
+            </a>
+        </div>
+    </div>
+</div>

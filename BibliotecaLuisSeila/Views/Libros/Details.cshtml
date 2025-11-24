@@ -1,0 +1,64 @@
+﻿@model BibliotecaLuisSeila.Models.Libros
+@{
+    ViewData["Title"] = "Detalles del Libro";
+}
+
+<h1><i class="fas fa-book"></i> Detalles del Libro</h1>
+<hr />
+
+<div class="row">
+    <div class="col-md-8">
+        <dl class="row">
+            <dt class="col-sm-3">Título:</dt>
+            <dd class="col-sm-9">@Model.Titulo</dd>
+
+            <dt class="col-sm-3">Autor:</dt>
+            <dd class="col-sm-9">@Model.Autor</dd>
+
+            <dt class="col-sm-3">Editorial:</dt>
+            <dd class="col-sm-9">@Model.Editorial</dd>
+
+            <dt class="col-sm-3">Categoría:</dt>
+            <dd class="col-sm-9">@Model.Categoria</dd>
+
+            <dt class="col-sm-3">Año Publicación:</dt>
+            <dd class="col-sm-9">@Model.AñoPublicacion</dd>
+
+            <dt class="col-sm-3">ISBN:</dt>
+            <dd class="col-sm-9">@Model.ISBN</dd>
+
+            <dt class="col-sm-3">Descripción:</dt>
+            <dd class="col-sm-9">@Model.Descripcion</dd>
+
+            @if (Model.Inventario != null)
+            {
+                <dt class="col-sm-3">Inventario:</dt>
+                <dd class="col-sm-9">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <strong>Total:</strong> @Model.Inventario.CantidadTotal
+                        </div>
+                        <div class="col-md-4">
+                            <strong>Disponibles:</strong>
+                            <span class="badge @(Model.Inventario.CantidadDisponible > 0 ? "bg-success" : "bg-danger")">
+                                @Model.Inventario.CantidadDisponible
+                            </span>
+                        </div>
+                        <div class="col-md-4">
+                            <strong>Prestados:</strong> @Model.Inventario.CantidadPrestada
+                        </div>
+                    </div>
+                </dd>
+            }
+        </dl>
+
+        <div class="mt-4">
+            <a class="btn btn-warning" asp-action="Edit" asp-route-id="@Model.Id">
+                <i class="fas fa-edit"></i> Editar
+            </a>
+            <a class="btn btn-secondary" asp-action="Index">
+                <i class="fas fa-arrow-left"></i> Volver a Lista
+            </a>
+        </div>
+    </div>
+</div>
